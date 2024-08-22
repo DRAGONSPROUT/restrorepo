@@ -27,7 +27,7 @@ public class usercontroller {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<String> saveUser(@RequestBody user user)
+    public ResponseEntity<> saveUser(@RequestBody user user)
     {
         String message = service.saveUser(user);
         if(message.equals("USER CREATED"))
