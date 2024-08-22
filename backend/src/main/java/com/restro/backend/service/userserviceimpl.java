@@ -4,6 +4,7 @@ package com.restro.backend.service;
 import com.restro.backend.model.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.restro.backend.repository.userrepo;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class userserviceimpl implements userservice{
     @Autowired
     userrepo userrepo;
 
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+
     @Override
     public List<user> getUser(){
         List<user> li = new ArrayList<>();
@@ -26,7 +29,7 @@ public class userserviceimpl implements userservice{
     @Override
     public String saveUser(user user)
     {
-
+        user.setPass(encoder.encode(user.getPass()));
         user us = this.userrepo.findByUsername(user.getUsername());
         System.out.print(user.getUsername());
         if( us == null) {
